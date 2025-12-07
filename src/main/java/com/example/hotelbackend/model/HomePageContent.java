@@ -23,12 +23,6 @@ public class HomePageContent {
     private ContactSection contactSection;
 
     @Data
-    public static class BrandSection {
-        private String title;
-        private List<Brand> brands;
-    }
-
-    @Data
     public static class Brand {
         private String name;
         private String description;
