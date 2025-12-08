@@ -8,7 +8,9 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,7 +20,7 @@ public class HomePageServiceImpl implements HomePageService {
     private final HomePageContentRepository repository;
 
     /* ===========================================================
-       INITIALIZE DEFAULT DATA ON FIRST RUN (SAFE FALLBACK)
+       INITIALIZE DEFAULT DATA ON FIRST RUN
     ============================================================ */
     @PostConstruct
     public void init() {
@@ -26,7 +28,7 @@ public class HomePageServiceImpl implements HomePageService {
 
         HomePageContent content = new HomePageContent();
 
-        // HERO IMAGES (match Home.jsx)
+        // HERO IMAGES
         content.setHeroImages(List.of(
                 "/assets/hero1.png",
                 "/assets/hero2.png",
@@ -35,55 +37,60 @@ public class HomePageServiceImpl implements HomePageService {
                 "/assets/brand-2.png"
         ));
 
-        // BRAND SECTION (dynamic blocks)
+        /* ===========================================================
+           BRAND SECTION (Dynamic blocks)
+        ============================================================ */
         HomePageContent.BrandDynamicSection bs = new HomePageContent.BrandDynamicSection();
         bs.setTitle("OUR BRANDS");
 
         HomePageContent.BrandBlock b1 = new HomePageContent.BrandBlock();
         b1.setLayout("text-left-image-right");
-        b1.setText("Experience the pinnacle of refined Indian luxury at Pride Plaza, our upscale brand created for high-income individuals, C-suite executives, and elite leisure travellers.");
+        b1.setText("Experience the pinnacle of refined Indian luxury at Pride Plaza...");
         b1.setImageUrl("/assets/brand-1.png");
 
         HomePageContent.BrandBlock b2 = new HomePageContent.BrandBlock();
         b2.setLayout("image-left-text-right");
-        b2.setText("Dynamic, stylish, and connected to India’s evolving urban lifestyle, Pride Premier is our upper midscale brand designed for affluent business executives and high-income families.");
+        b2.setText("Dynamic, stylish, and connected to India’s evolving urban lifestyle...");
         b2.setImageUrl("/assets/brand-1.png");
 
         HomePageContent.BrandBlock b3 = new HomePageContent.BrandBlock();
         b3.setLayout("text-left-image-right");
-        b3.setText("Focused on accessibility, convenience, and premium value, Pride Premier blends contemporary comfort with personalised amenities.");
+        b3.setText("Focused on accessibility, convenience, and premium value...");
         b3.setImageUrl("/assets/brand-1.png");
 
         bs.setBlocks(List.of(b1, b2, b3));
         content.setBrandSection(bs);
 
-        // EVENTS
+        /* ===========================================================
+           EVENTS SECTION
+        ============================================================ */
         HomePageContent.EventsSection es = new HomePageContent.EventsSection();
         es.setTitle("PLAN YOUR EVENTS");
 
         HomePageContent.Event e1 = new HomePageContent.Event();
         e1.setTitle("Woyage - Daycations");
-        e1.setDescription("Replenish your spirit as you escape into your world of serenity...");
+        e1.setDescription("Replenish your spirit...");
         e1.setImageUrl("/assets/g1.png");
 
         HomePageContent.Event e2 = new HomePageContent.Event();
         e2.setTitle("Luxury Escapes");
-        e2.setDescription("Unwind in curated luxurious settings crafted just for unforgettable experiences.");
+        e2.setDescription("Unwind in curated luxurious settings...");
         e2.setImageUrl("/assets/g2.png");
 
         HomePageContent.Event e3 = new HomePageContent.Event();
         e3.setTitle("Offers & Promotions");
-        e3.setDescription("Exclusive seasonal offers crafted just for you.");
+        e3.setDescription("Exclusive seasonal offers...");
         e3.setImageUrl("/assets/g3.png");
 
         es.setEvents(List.of(e1, e2, e3));
         content.setEventsSection(es);
 
-        // ABOUT
+        /* ===========================================================
+           ABOUT SECTION
+        ============================================================ */
         HomePageContent.AboutSection as = new HomePageContent.AboutSection();
         as.setTitle("ABOUT US");
-        as.setDescription("Since 2016, we've been helping travelers find stays they love — effortlessly. " +
-                "We're about curating unforgettable journeys! Our passionate team blends seamless technology with a love for discovery.");
+        as.setDescription("Since 2016, we've been helping travelers find stays they love...");
         as.setButtonText("Know More →");
         as.setButtonLink("/about");
 
@@ -102,7 +109,9 @@ public class HomePageServiceImpl implements HomePageService {
         as.setStats(List.of(s1, s2, s3));
         content.setAboutSection(as);
 
-        // BRAND BANNER + CONTACTS
+        /* ===========================================================
+           BRAND BANNER
+        ============================================================ */
         HomePageContent.BrandBanner bb = new HomePageContent.BrandBanner();
         bb.setTitle("TRULY INDIAN. TRADITIONALLY LUXURIOUS.");
         bb.setSubtitle("Leading Hotel Chain Group in India");
@@ -120,27 +129,35 @@ public class HomePageServiceImpl implements HomePageService {
         bb.setContacts(List.of(c1, c2));
         content.setBrandBanner(bb);
 
-        // CONTACT SECTION
+        /* ===========================================================
+           UPDATED CONTACT SECTION (NEW STRUCTURE)
+        ============================================================ */
         HomePageContent.ContactSection cs = new HomePageContent.ContactSection();
-        cs.setReservationPhone("1800 209 1400");
-        cs.setHotelPhone("+91 9876543210");
-        cs.setEmail("centralreservations@hrchotel.com");
-        cs.setCorporateAddress("Corporate Office, Mumbai");
+        cs.setCompanyName("BHR Hotels India LLP");
+        cs.setCompanySince("2010");
+
+        cs.setReservationPhone("+91 9211283334");
+        cs.setHotelPhone("+91 ");
+
+        cs.setVisitUs("www.bhrhotelsindia.com");
+        cs.setEmail("info@bhrhotelsindia.com");
+        cs.setWatsApp("wa.me/919211283334");
+
+        cs.setCorporateAddress("Head Office : B-128, C-49, First Floor, Sector-2, Noida, Gautam Buddha Nagar - 201301, India");
         cs.setSupportHours("24x7");
 
-        HomePageContent.SocialLink fb = new HomePageContent.SocialLink();
-        fb.setName("facebook");
-        fb.setUrl("https://facebook.com/ihc");
+        Map<String, String> links = new HashMap<>();
+        links.put("facebook", "https://www.facebook.com/bhrhotelsindia");
+        links.put("instagram", "https://www.instagram.com/bhrhotelsindiaofficial");
+        links.put("youtube", "https://www.youtube.com/@bhrhotelsindia");
+        links.put("twitterX", "https://x.com/bhrhotelsindia");
 
-        HomePageContent.SocialLink ig = new HomePageContent.SocialLink();
-        ig.setName("instagram");
-        ig.setUrl("https://instagram.com/ihc");
-
-        cs.setSocialLinks(List.of(fb, ig));
+        cs.setSocialLinks(links);
         content.setContactSection(cs);
 
         repository.save(content);
     }
+
 
     /* ===========================================================
        GET HOME PAGE DATA
@@ -153,7 +170,7 @@ public class HomePageServiceImpl implements HomePageService {
     }
 
     /* ===========================================================
-       UPDATE HOME PAGE DATA (PARTIAL UPDATE)
+       UPDATE HOME PAGE DATA
     ============================================================ */
     @Override
     public HomePageData updateHomePageData(HomePageData dto) {
@@ -167,31 +184,30 @@ public class HomePageServiceImpl implements HomePageService {
     }
 
     /* ===========================================================
-       DTO → ENTITY (PARTIAL UPDATE)
+       UPDATE ENTITY FROM DTO (PARTIAL UPDATE)
     ============================================================ */
     private void updateEntityFromDto(HomePageContent entity, HomePageData dto) {
         if (dto == null) return;
 
         // HERO IMAGES
-        if (dto.getHeroImages() != null) {
+        if (dto.getHeroImages() != null)
             entity.setHeroImages(dto.getHeroImages());
-        }
 
-        // BRAND SECTION (BrandDynamicSection)
+        // BRAND SECTION
         if (dto.getBrandSection() != null) {
             HomePageContent.BrandDynamicSection existing =
                     entity.getBrandSection() != null ? entity.getBrandSection() : new HomePageContent.BrandDynamicSection();
 
-            if (dto.getBrandSection().getTitle() != null) {
+            if (dto.getBrandSection().getTitle() != null)
                 existing.setTitle(dto.getBrandSection().getTitle());
-            }
 
             if (dto.getBrandSection().getBlocks() != null) {
-                List<HomePageContent.BrandBlock> blocks = dto.getBrandSection().getBlocks()
-                        .stream()
-                        .map(this::toBrandBlockEntity)
-                        .collect(Collectors.toList());
-                existing.setBlocks(blocks);
+                existing.setBlocks(
+                        dto.getBrandSection().getBlocks()
+                                .stream()
+                                .map(this::toBrandBlockEntity)
+                                .collect(Collectors.toList())
+                );
             }
 
             entity.setBrandSection(existing);
@@ -202,9 +218,8 @@ public class HomePageServiceImpl implements HomePageService {
             HomePageContent.EventsSection existing =
                     entity.getEventsSection() != null ? entity.getEventsSection() : new HomePageContent.EventsSection();
 
-            if (dto.getEventsSection().getTitle() != null) {
+            if (dto.getEventsSection().getTitle() != null)
                 existing.setTitle(dto.getEventsSection().getTitle());
-            }
 
             if (dto.getEventsSection().getEvents() != null) {
                 existing.setEvents(
@@ -223,18 +238,17 @@ public class HomePageServiceImpl implements HomePageService {
             HomePageContent.AboutSection existing =
                     entity.getAboutSection() != null ? entity.getAboutSection() : new HomePageContent.AboutSection();
 
-            if (dto.getAboutSection().getTitle() != null) {
+            if (dto.getAboutSection().getTitle() != null)
                 existing.setTitle(dto.getAboutSection().getTitle());
-            }
-            if (dto.getAboutSection().getDescription() != null) {
+
+            if (dto.getAboutSection().getDescription() != null)
                 existing.setDescription(dto.getAboutSection().getDescription());
-            }
-            if (dto.getAboutSection().getButtonText() != null) {
+
+            if (dto.getAboutSection().getButtonText() != null)
                 existing.setButtonText(dto.getAboutSection().getButtonText());
-            }
-            if (dto.getAboutSection().getButtonLink() != null) {
+
+            if (dto.getAboutSection().getButtonLink() != null)
                 existing.setButtonLink(dto.getAboutSection().getButtonLink());
-            }
 
             if (dto.getAboutSection().getStats() != null) {
                 existing.setStats(
@@ -248,17 +262,16 @@ public class HomePageServiceImpl implements HomePageService {
             entity.setAboutSection(existing);
         }
 
-        // BRAND BANNER (including contacts)
+        // BRAND BANNER
         if (dto.getBrandBanner() != null) {
             HomePageContent.BrandBanner existing =
                     entity.getBrandBanner() != null ? entity.getBrandBanner() : new HomePageContent.BrandBanner();
 
-            if (dto.getBrandBanner().getTitle() != null) {
+            if (dto.getBrandBanner().getTitle() != null)
                 existing.setTitle(dto.getBrandBanner().getTitle());
-            }
-            if (dto.getBrandBanner().getSubtitle() != null) {
+
+            if (dto.getBrandBanner().getSubtitle() != null)
                 existing.setSubtitle(dto.getBrandBanner().getSubtitle());
-            }
 
             if (dto.getBrandBanner().getContacts() != null) {
                 existing.setContacts(
@@ -272,39 +285,45 @@ public class HomePageServiceImpl implements HomePageService {
             entity.setBrandBanner(existing);
         }
 
-        // CONTACT SECTION
+        // UPDATED CONTACT SECTION
         if (dto.getContactSection() != null) {
             HomePageContent.ContactSection existing =
                     entity.getContactSection() != null ? entity.getContactSection() : new HomePageContent.ContactSection();
 
-            if (dto.getContactSection().getReservationPhone() != null) {
-                existing.setReservationPhone(dto.getContactSection().getReservationPhone());
-            }
-            if (dto.getContactSection().getHotelPhone() != null) {
-                existing.setHotelPhone(dto.getContactSection().getHotelPhone());
-            }
-            if (dto.getContactSection().getEmail() != null) {
-                existing.setEmail(dto.getContactSection().getEmail());
-            }
-            if (dto.getContactSection().getCorporateAddress() != null) {
-                existing.setCorporateAddress(dto.getContactSection().getCorporateAddress());
-            }
-            if (dto.getContactSection().getSupportHours() != null) {
-                existing.setSupportHours(dto.getContactSection().getSupportHours());
-            }
+            if (dto.getContactSection().getCompanyName() != null)
+                existing.setCompanyName(dto.getContactSection().getCompanyName());
 
-            if (dto.getContactSection().getSocialLinks() != null) {
-                existing.setSocialLinks(
-                        dto.getContactSection().getSocialLinks()
-                                .stream()
-                                .map(this::toSocialLinkEntity)
-                                .collect(Collectors.toList())
-                );
-            }
+            if (dto.getContactSection().getCompanySince() != null)
+                existing.setCompanySince(dto.getContactSection().getCompanySince());
+
+            if (dto.getContactSection().getReservationPhone() != null)
+                existing.setReservationPhone(dto.getContactSection().getReservationPhone());
+
+            if (dto.getContactSection().getHotelPhone() != null)
+                existing.setHotelPhone(dto.getContactSection().getHotelPhone());
+
+            if (dto.getContactSection().getVisitUs() != null)
+                existing.setVisitUs(dto.getContactSection().getVisitUs());
+
+            if (dto.getContactSection().getEmail() != null)
+                existing.setEmail(dto.getContactSection().getEmail());
+
+            if (dto.getContactSection().getWatsApp() != null)
+                existing.setWatsApp(dto.getContactSection().getWatsApp());
+
+            if (dto.getContactSection().getCorporateAddress() != null)
+                existing.setCorporateAddress(dto.getContactSection().getCorporateAddress());
+
+            if (dto.getContactSection().getSupportHours() != null)
+                existing.setSupportHours(dto.getContactSection().getSupportHours());
+
+            if (dto.getContactSection().getSocialLinks() != null)
+                existing.setSocialLinks(dto.getContactSection().getSocialLinks());
 
             entity.setContactSection(existing);
         }
     }
+
 
     /* ===========================================================
        ENTITY → DTO
@@ -321,6 +340,7 @@ public class HomePageServiceImpl implements HomePageService {
 
         return dto;
     }
+
 
     /* ===========================================================
        DTO → ENTITY HELPERS
@@ -348,12 +368,6 @@ public class HomePageServiceImpl implements HomePageService {
         return s;
     }
 
-    private HomePageContent.SocialLink toSocialLinkEntity(HomePageData.SocialLink dto) {
-        HomePageContent.SocialLink s = new HomePageContent.SocialLink();
-        s.setName(dto.getName());
-        s.setUrl(dto.getUrl());
-        return s;
-    }
 
     private HomePageContent.ContactInfo toContactInfoEntity(HomePageData.ContactInfo dto) {
         HomePageContent.ContactInfo ci = new HomePageContent.ContactInfo();
@@ -362,6 +376,7 @@ public class HomePageServiceImpl implements HomePageService {
         ci.setDisplayValue(dto.getDisplayValue());
         return ci;
     }
+
 
     /* ===========================================================
        ENTITY → DTO HELPERS
@@ -468,27 +483,19 @@ public class HomePageServiceImpl implements HomePageService {
     private HomePageData.ContactSection toContactDto(HomePageContent.ContactSection e) {
         if (e == null) return null;
         HomePageData.ContactSection dto = new HomePageData.ContactSection();
+
+        dto.setCompanyName(e.getCompanyName());
+        dto.setCompanySince(e.getCompanySince());
         dto.setReservationPhone(e.getReservationPhone());
         dto.setHotelPhone(e.getHotelPhone());
+        dto.setVisitUs(e.getVisitUs());
         dto.setEmail(e.getEmail());
+        dto.setWatsApp(e.getWatsApp());
         dto.setCorporateAddress(e.getCorporateAddress());
         dto.setSupportHours(e.getSupportHours());
+        dto.setSocialLinks(e.getSocialLinks());
 
-        if (e.getSocialLinks() != null) {
-            dto.setSocialLinks(
-                    e.getSocialLinks()
-                            .stream()
-                            .map(this::toSocialLinkDto)
-                            .collect(Collectors.toList())
-            );
-        }
         return dto;
     }
 
-    private HomePageData.SocialLink toSocialLinkDto(HomePageContent.SocialLink e) {
-        HomePageData.SocialLink dto = new HomePageData.SocialLink();
-        dto.setName(e.getName());
-        dto.setUrl(e.getUrl());
-        return dto;
-    }
 }

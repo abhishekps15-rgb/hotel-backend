@@ -3,6 +3,7 @@ package com.example.hotelbackend.dto;
 
 import lombok.Data;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data Transfer Object for home page content.
@@ -76,13 +77,24 @@ public class HomePageData {
 
     @Data
     public static class ContactSection {
+
+        private String companyName;
+        private String companySince;
+
         private String reservationPhone;
         private String hotelPhone;
+
+        private String visitUs;
         private String email;
+        private String watsApp;
+
         private String corporateAddress;
         private String supportHours;
-        private List<SocialLink> socialLinks;
+
+        // socialLinks is now a MAP instead of List
+        private Map<String, String> socialLinks;
     }
+
 
     @Data
     public static class SocialLink {

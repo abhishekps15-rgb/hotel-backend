@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Document(collection = "home_page_content")
@@ -73,13 +74,23 @@ public class HomePageContent {
 
     @Data
     public static class ContactSection {
+
+        private String companyName;
+        private String companySince;
+
         private String reservationPhone;
         private String hotelPhone;
+
+        private String visitUs;
         private String email;
+        private String watsApp;
+
         private String corporateAddress;
         private String supportHours;
-        private List<SocialLink> socialLinks;
+
+        private Map<String, String> socialLinks;
     }
+
 
     @Data
     public static class SocialLink {
